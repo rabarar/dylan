@@ -102,6 +102,7 @@ func (p *Palette) Save(dst string) error {
 	return nil
 }
 
+// FillPalette
 func (p *Palette) FillPalette() error {
 
 	for i := 0; i < len(p.List); i++ {
