@@ -146,7 +146,6 @@ func (p *Palette) Closest(mean color.Color) *image.Image {
 
 	for _, p := range p.List {
 		n1 := norm(p.Rank, mean)
-		fmt.Printf("norm: %f\n", n1)
 		if n1 < dist {
 			dist = n1
 			image = p.Image()
