@@ -1,13 +1,7 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"image"
-	"image/color"
-	"image/jpeg"
-	"io/ioutil"
-	"os"
 
 	"github.com/rabarar/dylan/pal"
 
