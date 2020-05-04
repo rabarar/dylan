@@ -23,6 +23,24 @@ type Brush struct {
 	File string `json:"filename"`
 }
 
+func (br *Brush) Fill(basePath string) error {
+
+	fpath := fmt.Sprintf("%s/%s", basePath, br.File)
+	imgFile, err := os.Open(fpath)
+	if err != nil {
+		return err
+	}
+	defer imgFile.Close()
+
+	img, err := jpeg.Decode(imgFile)
+	if err != nil {
+		return err
+	}
+	br.img = &img
+
+	return nil
+}
+
 type Palette struct {
 	Dirname string  `json:"bucket"`
 	List    []Brush `json:"brush"`
@@ -82,6 +100,19 @@ func (p *Palette) Save(dst string) error {
 	}
 
 	return nil
+}
+
+func (p *Palette) FillPalette() error {
+
+	for i := 0; i < len(p.List); i++ {
+		err := p.List[i].Fill(p.Dirname)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+
 }
 
 func LoadPalette(src string) (*Palette, error) {
