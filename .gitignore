@@ -15,4 +15,5 @@
 # vendor/
 *.jpg
 dylan
-palette
+palette/palette
+palette/*.json
