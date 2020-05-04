@@ -7,6 +7,7 @@ import (
 	"image/color"
 	"image/jpeg"
 	"io/ioutil"
+	"math"
 	"os"
 )
 
@@ -15,6 +16,11 @@ type RGBA struct {
 	G uint32 `json:"g"`
 	B uint32 `json:"b"`
 	A uint32 `json:"a"`
+}
+
+func (rgba *RGBA) RGBA() (uint32, uint32, uint32, uint32) {
+
+	return rgba.R, rgba.G, rgba.B, rgba.A
 }
 
 type Brush struct {
@@ -121,19 +127,24 @@ func (p *Palette) FillPalette() error {
 
 }
 
-func norm(p1, p2 color.Color) uint32 {
+func norm(p1 RGBA, p2 color.Color) float64 {
 	r1, g1, b1, a1 := p1.RGBA()
 	r2, g2, b2, a2 := p2.RGBA()
 
-	return math.Sqrt((r1-r2)*(r1-r2) + (g1-g2)*(g1-g2) + (b1-b2)*(b1-b2) + (a1-a2)*(a1-a2))
+	return math.Sqrt(
+		(float64(r1)-float64(r2))*(float64(r1)-float64(r2)) +
+			(float64(g1)-float64(g2))*(float64(g1)-float64(g2)) +
+			(float64(b1)-float64(b2))*(float64(b1)-float64(b2)) +
+			(float64(a1)-float64(a2))*(float64(a1)-float64(a2)))
 }
 
 func (p *Palette) Closest(mean color.Color) *image.Image {
 
-	dist := 10000
+	var dist float64 = 10000.0
+
 	var image *image.Image = nil
 
-	for p := range p.List {
+	for _, p := range p.List {
 		n1 := norm(p.Rank, mean)
 		if n1 < dist {
 			dist = n1
