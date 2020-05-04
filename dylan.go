@@ -7,7 +7,10 @@ import (
 	"image/color"
 	"image/jpeg"
 	"io/ioutil"
+	"math/rand"
 	"os"
+
+	"github.com/rabarar/dylan/pal"
 )
 
 const (
@@ -128,16 +131,59 @@ func main() {
 	// create new image from windows
 	newImg := image.NewRGBA(image.Rect(minx, miny, maxx, maxy))
 
-	// fill it
-	for i := 0; i < len(windows); i++ {
-		windows[i].CalcMean()
-		for x := windows[i].Min.X; x < windows[i].Max.X; x++ {
-			for y := windows[i].Min.Y; y < windows[i].Max.Y; y++ {
-				if false {
-					newImg.Set(x, y, windows[i].Window[x%windows[i].size][y%windows[i].size])
-				} else {
-					newImg.Set(x, y, windows[i].Mean())
+	p, err := pal.LoadPalette("palette.json")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("loaded Palette...\n")
 
+	err = p.FillPalette()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("filled Palette...\n")
+
+	// fill it with a (random) tile
+	for x := minx; x < maxx; x += size {
+
+		for y := miny; y < maxy; y += size {
+
+			// select a palette
+			ip := *(p.List[rand.Intn(len(p.List))].Image())
+
+			for wx := 0; wx < size; wx++ {
+				for wy := 0; wy < size; wy++ {
+					newImg.Set(x+wx, y+wy, ip.At(wx, wy))
+				}
+			}
+		}
+	}
+
+	// fill it with the mean
+	if false {
+		for i := 0; i < len(windows); i++ {
+			windows[i].CalcMean()
+			for x := windows[i].Min.X; x < windows[i].Max.X; x++ {
+				for y := windows[i].Min.Y; y < windows[i].Max.Y; y++ {
+					newImg.Set(x, y, windows[i].Mean())
+				}
+			}
+		}
+	}
+
+	// fill it with the closest tile
+	if true {
+		for i := 0; i < len(windows); i++ {
+			//ip := *(p.List[0].Image()) // p.Closest(windows[i].Mean())
+			windows[i].CalcMean()
+			var ip *image.Image = p.Closest(windows[i].Mean())
+			if ip == nil {
+				panic("can't be nil!")
+
+			}
+			for x := windows[i].Min.X; x < windows[i].Max.X; x++ {
+				for y := windows[i].Min.Y; y < windows[i].Max.Y; y++ {
+					newImg.Set(x, y, (*ip).At(x-windows[i].Min.X, y-windows[i].Min.Y))
 				}
 			}
 		}
