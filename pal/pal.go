@@ -127,12 +127,9 @@ func (p *Palette) FillPalette() error {
 
 }
 
-func norm(p1 RGBA, p2 color.RGBA) float64 {
+func norm(p1 RGBA, p2 color.Color) float64 {
 	r1, g1, b1, a1 := p1.RGBA()
-	r2 := p2.R
-	b2 := p2.B
-	g2 := p2.G
-	a2 := p2.A
+	r2, g2, b2, a2 := p2.RGBA()
 
 	return math.Sqrt(
 		(float64(r1)-float64(r2))*(float64(r1)-float64(r2)) +
@@ -141,7 +138,7 @@ func norm(p1 RGBA, p2 color.RGBA) float64 {
 			(float64(a1)-float64(a2))*(float64(a1)-float64(a2)))
 }
 
-func (p *Palette) Closest(mean color.RGBA) *image.Image {
+func (p *Palette) Closest(mean color.Color) *image.Image {
 
 	var dist float64 = 10000.0
 
