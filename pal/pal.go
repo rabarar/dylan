@@ -122,8 +122,8 @@ func (p *Palette) FillPalette() error {
 }
 
 func norm(p1, p2 color.Color) uint32 {
-	r1, g1, b1, a1 = p1.RGBA()
-	r2, g2, b2, a2 = p2.RGBA()
+	r1, g1, b1, a1 := p1.RGBA()
+	r2, g2, b2, a2 := p2.RGBA()
 
 	return math.Sqrt((r1-r2)*(r1-r2) + (g1-g2)*(g1-g2) + (b1-b2)*(b1-b2) + (a1-a2)*(a1-a2))
 }
