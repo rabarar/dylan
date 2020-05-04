@@ -8,9 +8,6 @@ import (
 	"image/jpeg"
 	"io/ioutil"
 	"os"
-
-	"github.com/anthonynsimon/bild/imgio"
-	"github.com/anthonynsimon/bild/transform"
 )
 
 type RGBA struct {
