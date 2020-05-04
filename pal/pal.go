@@ -23,6 +23,7 @@ type Brush struct {
 	File string `json:"filename"`
 }
 
+// Get Image
 func (br *Brush) Image() *image.Image {
 	return br.img
 }
