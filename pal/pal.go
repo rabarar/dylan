@@ -23,6 +23,10 @@ type Brush struct {
 	File string `json:"filename"`
 }
 
+func (br *Brush) Image() *image.Image {
+	return br.img
+}
+
 func (br *Brush) Fill(basePath string) error {
 
 	fpath := fmt.Sprintf("%s/%s", basePath, br.File)
