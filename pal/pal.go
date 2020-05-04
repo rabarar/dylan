@@ -140,12 +140,13 @@ func norm(p1 RGBA, p2 color.Color) float64 {
 
 func (p *Palette) Closest(mean color.Color) *image.Image {
 
-	var dist float64 = 10000.0
+	var dist float64 = math.MaxFloat64
 
 	var image *image.Image = nil
 
 	for _, p := range p.List {
 		n1 := norm(p.Rank, mean)
+		fmt.Printf("norm: %f\n", n1)
 		if n1 < dist {
 			dist = n1
 			image = p.Image()
