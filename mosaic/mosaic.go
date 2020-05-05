@@ -163,6 +163,7 @@ func (mo *Mosaic) Color(p *pal.Palette, mode ColorMode) error {
 
 				// select a palette
 				ip := *(p.List[rand.Intn(len(p.List))].Image())
+				fmt.Printf(".")
 
 				for wx := 0; wx < mo.size; wx++ {
 					for wy := 0; wy < mo.size; wy++ {
@@ -171,7 +172,7 @@ func (mo *Mosaic) Color(p *pal.Palette, mode ColorMode) error {
 				}
 			}
 		}
-		fmt.Printf("done random...\n")
+		fmt.Printf("\ndone random...\n")
 
 	case ColorModeMean:
 		// fill it with the mean
