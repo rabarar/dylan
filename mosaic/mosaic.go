@@ -15,7 +15,14 @@ import (
 const (
 	WINDOW_SIZE  = 25
 	JPEG_QUALITY = 100
+
+	ColorModeRandom = iota
+	ColorModeCopy
+	ColorModeMean
+	ColorModeMeanTile
 )
+
+type ColorMode int
 
 type Mosaic struct {
 	boxes   *[]*WindowBox
@@ -135,7 +142,7 @@ func NewMosaic(srcFile string, size int) (*Mosaic, error) {
 
 }
 
-func (mo *Mosaic) Color(p *pal.Palette) error {
+func (mo *Mosaic) Color(p *pal.Palette, mode ColorMode) error {
 
 	minx := mo.img.Bounds().Min.X
 	miny := mo.img.Bounds().Min.Y
@@ -143,8 +150,10 @@ func (mo *Mosaic) Color(p *pal.Palette) error {
 	maxx := mo.img.Bounds().Max.X
 	maxy := mo.img.Bounds().Max.Y
 
+	switch mode {
+
 	// fill it with a (random) tile
-	if false {
+	case ColorModeRandom:
 		for x := minx; x < maxx; x += mo.size {
 
 			for y := miny; y < maxy; y += mo.size {
@@ -159,10 +168,9 @@ func (mo *Mosaic) Color(p *pal.Palette) error {
 				}
 			}
 		}
-	}
 
-	// fill it with the mean
-	if false {
+	case ColorModeMean:
+		// fill it with the mean
 		for i := 0; i < len(*mo.boxes); i++ {
 			(*mo.boxes)[i].CalcMean()
 			for x := (*mo.boxes)[i].Min.X; x < (*mo.boxes)[i].Max.X; x++ {
@@ -171,10 +179,9 @@ func (mo *Mosaic) Color(p *pal.Palette) error {
 				}
 			}
 		}
-	}
 
-	// fill it with the closest tile
-	if true {
+		// fill it with the closest tile
+	case ColorModeMeanTile:
 		for i := 0; i < len((*mo.boxes)); i++ {
 			//ip := *(p.List[0].Image()) // p.Closest(windows[i].Mean())
 			(*mo.boxes)[i].CalcMean()
@@ -189,10 +196,8 @@ func (mo *Mosaic) Color(p *pal.Palette) error {
 				}
 			}
 		}
-	}
-
-	// basic copy
-	if false {
+		// basic copy
+	case ColorModeCopy:
 		for x := minx; x < maxx; x++ {
 			for y := miny; y < maxy; y++ {
 				mo.newImg.Set(x, y, mo.img.At(x, y))
