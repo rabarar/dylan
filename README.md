@@ -1,0 +1,6 @@
+# dylan
+Mosaic generation tool
+
+generate mosaic pics by "painting" with other photos...
+
+WIP - one-day hack... refactoring required...
