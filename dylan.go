@@ -9,11 +9,21 @@ import (
 	"github.com/rabarar/dylan/pal"
 )
 
+var (
+	colorMode = map[string]mosaic.ColorMode{
+		"tile":   mosaic.ColorModeMeanTile,
+		"random": mosaic.ColorModeRandom,
+		"mean":   mosaic.ColorModeMean,
+		"copy":   mosaic.ColorModeCopy,
+	}
+)
+
 func main() {
 
 	srcFilename := flag.String("src", "", "input jpeg filename ")
 	dstFilename := flag.String("dst", "output.jpg", "output jpeg filename ")
 	palFilename := flag.String("palette", "palette.json", "json for palette")
+	mode := flag.String("mode", "tile | random | mean | copy", "tiling mode")
 
 	flag.Parse()
 
@@ -39,7 +49,9 @@ func main() {
 	}
 	fmt.Printf("filled Palette...\n")
 
-	err = mo.Color(p, mosaic.ColorModeMeanTile)
+	var cmode mosaic.ColorMode = colorMode[*mode]
+
+	err = mo.Color(p, cmode)
 	if err != nil {
 		panic(err)
 	}
