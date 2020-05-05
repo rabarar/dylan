@@ -7,6 +7,7 @@ import (
 	"image/jpeg"
 	"io/ioutil"
 	"math/rand"
+	"os"
 
 	"github.com/rabarar/dylan/pal"
 )
@@ -197,6 +198,22 @@ func (mo *Mosaic) Color(p *pal.Palette) error {
 				mo.newImg.Set(x, y, mo.img.At(x, y))
 			}
 		}
+	}
+
+	return nil
+}
+
+func (mo *Mosaic) Save(dstFile string, quality int) error {
+	// write it to disk
+	file, err := os.Create(dstFile)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	err = jpeg.Encode(file, mo.newImg, &jpeg.Options{Quality: quality})
+	if err != nil {
+		return err
 	}
 
 	return nil
