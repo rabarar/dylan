@@ -157,21 +157,40 @@ func (mo *Mosaic) Color(p *pal.Palette, mode ColorMode) error {
 	case ColorModeRandom:
 		fmt.Printf("begin random (selecting among %d tiles)\n", len(p.List))
 
-		for x := minx; x < maxx; x += mo.size {
+		/*
+			for x := minx; x < maxx; x += mo.size {
 
-			for y := miny; y < maxy; y += mo.size {
+				for y := miny; y < maxy; y += mo.size {
 
-				// select a palette
-				ip := *(p.List[rand.Intn(len(p.List))].Image())
-				fmt.Printf(".")
+					// select a palette
+					ip := *(p.List[rand.Intn(len(p.List))].Image())
+					fmt.Printf(".")
 
-				for wx := 0; wx < mo.size; wx++ {
-					for wy := 0; wy < mo.size; wy++ {
-						mo.newImg.Set(x+wx, y+wy, ip.At(wx, wy))
+					for wx := 0; wx < mo.size; wx++ {
+						for wy := 0; wy < mo.size; wy++ {
+							mo.newImg.Set(x+wx, y+wy, ip.At(wx, wy))
+						}
 					}
 				}
 			}
+		*/
+
+		for i := 0; i < len((*mo.boxes)); i++ {
+
+			(*mo.boxes)[i].CalcMean()
+			var ip *image.Image = (p.List[rand.Intn(len(p.List))].Image())
+
+			if ip == nil {
+				panic("can't be nil!")
+
+			}
+			for x := (*mo.boxes)[i].Min.X; x < (*mo.boxes)[i].Max.X; x++ {
+				for y := (*mo.boxes)[i].Min.Y; y < (*mo.boxes)[i].Max.Y; y++ {
+					mo.newImg.Set(x, y, (*ip).At(x-(*mo.boxes)[i].Min.X, y-(*mo.boxes)[i].Min.Y))
+				}
+			}
 		}
+
 		fmt.Printf("\ndone random...\n")
 
 	case ColorModeMean:
