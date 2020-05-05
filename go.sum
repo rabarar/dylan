@@ -1,3 +1,11 @@
+github.com/rabarar/dylan/mosaic v0.0.1 h1:JDzH4yqswZuG5uZEGYOFmtG6Mk2izItdxELsLMEh2Rs=
+github.com/rabarar/dylan/mosaic v0.0.1/go.mod h1:4QXP32or6lkOK3XRNyDxBL+VDZFS3e0ATLp3IIpGupE=
+github.com/rabarar/dylan/mosaic v0.0.2 h1:Z1GidU08mAJoBv2qN2jBM3L0bf5rZ2BE+8pqAtL+r7I=
+github.com/rabarar/dylan/mosaic v0.0.2/go.mod h1:4QXP32or6lkOK3XRNyDxBL+VDZFS3e0ATLp3IIpGupE=
+github.com/rabarar/dylan/mosaic v0.0.3 h1:Due7za0E4RHflj13IrmOTf5eORUKNQpdbl4H2RDWTlI=
+github.com/rabarar/dylan/mosaic v0.0.3/go.mod h1:4QXP32or6lkOK3XRNyDxBL+VDZFS3e0ATLp3IIpGupE=
+github.com/rabarar/dylan/mosaic v0.0.4 h1:PyIVXF4DjAafzZlHCy0WM/vuWMFCaTd6FH8XI2iwSbU=
+github.com/rabarar/dylan/mosaic v0.0.4/go.mod h1:4QXP32or6lkOK3XRNyDxBL+VDZFS3e0ATLp3IIpGupE=
 github.com/rabarar/dylan/pal v0.1.3 h1:iZnH/HkPdRyc6WzWXXnvV2tFHlORHxhtKJ1QxGZuxaA=
 github.com/rabarar/dylan/pal v0.1.3/go.mod h1:5JsWuXoZyONpPSGTJ6tVoHSKYaMRS3w7sCJ4Ex9r6PM=
 github.com/rabarar/dylan/pal v0.1.4 h1:XpQPlz1j9YOvEDlQryvKZ+vH8SSvxQJM4ulnJYWPXxk=
