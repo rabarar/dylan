@@ -3,15 +3,17 @@ Mosaic generation tool
 
 generate mosaic pics by "painting" with other photos...
 
-`$ ./dylan -h
+`$ ./dylan --h
 Usage of ./dylan:
   -dst string
     	output jpeg filename  (default "output.jpg")
+  -mode string
+    	tiling mode (default "tile | random | mean | copy")
   -palette string
     	json for palette (default "palette.json")
   -src string
-    	input jpeg filename
-` 
+    	input jpeg filename 
+`
 
 use ./palette to generate a palette for ./dylan
 
