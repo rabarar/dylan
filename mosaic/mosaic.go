@@ -134,7 +134,7 @@ func NewMosaic(srcFile string, size int) (*Mosaic, error) {
 
 }
 
-func (mo *Mosaic) Color(p pal.Palette) error {
+func (mo *Mosaic) Color(p *pal.Palette) error {
 
 	minx := mo.img.Bounds().Min.X
 	miny := mo.img.Bounds().Min.Y
