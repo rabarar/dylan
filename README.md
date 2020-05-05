@@ -3,7 +3,7 @@ Mosaic generation tool
 
 generate mosaic pics by "painting" with other photos...
 
-`$ ./dylan --h
+```$ ./dylan --h
 Usage of ./dylan:
   -dst string
     	output jpeg filename  (default "output.jpg")
@@ -13,11 +13,11 @@ Usage of ./dylan:
     	json for palette (default "palette.json")
   -src string
     	input jpeg filename 
-`
+```
 
 use ./palette to generate a palette for ./dylan
 
-`
+```
 $ ./palette/./palette -h
 Usage of ./palette/./palette:
   -action string
@@ -30,4 +30,4 @@ Usage of ./palette/./palette:
     	resize dimension (default 25)
   -src string
     	source palette directory (default "bucket")
-`
+```
