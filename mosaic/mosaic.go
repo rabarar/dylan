@@ -2,6 +2,7 @@ package mosaic
 
 import (
 	"bytes"
+	"fmt"
 	"image"
 	"image/color"
 	"image/jpeg"
@@ -16,7 +17,7 @@ const (
 	WINDOW_SIZE  = 25
 	JPEG_QUALITY = 100
 
-	ColorModeRandom = iota
+	ColorModeRandom ColorMode = iota
 	ColorModeCopy
 	ColorModeMean
 	ColorModeMeanTile
@@ -154,6 +155,8 @@ func (mo *Mosaic) Color(p *pal.Palette, mode ColorMode) error {
 
 	// fill it with a (random) tile
 	case ColorModeRandom:
+		fmt.Printf("begin random (selecting among %d tiles)\n", len(p.List))
+
 		for x := minx; x < maxx; x += mo.size {
 
 			for y := miny; y < maxy; y += mo.size {
@@ -168,6 +171,7 @@ func (mo *Mosaic) Color(p *pal.Palette, mode ColorMode) error {
 				}
 			}
 		}
+		fmt.Printf("done random...\n")
 
 	case ColorModeMean:
 		// fill it with the mean
