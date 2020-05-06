@@ -23,7 +23,7 @@ func main() {
 	srcFilename := flag.String("src", "", "input jpeg filename ")
 	dstFilename := flag.String("dst", "output.jpg", "output jpeg filename ")
 	palFilename := flag.String("palette", "palette.json", "json for palette")
-	mode := flag.String("mode", "tile | random | mean | copy", "tiling mode")
+	mode := flag.String("mode", "tile", "tiling mode: tile | random | mean | copy")
 
 	flag.Parse()
 
