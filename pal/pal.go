@@ -9,6 +9,8 @@ import (
 	"io/ioutil"
 	"math"
 	"os"
+
+	"github.com/anthonynsimon/bild/transform"
 )
 
 type RGBA struct {
@@ -57,7 +59,7 @@ type Palette struct {
 	List    []Brush `json:"brush"`
 }
 
-func NewPalette(bucket string) (*Palette, error) {
+func NewPalette(bucket string, size int) (*Palette, error) {
 	p := &Palette{}
 	p.List = make([]Brush, 0)
 
@@ -71,7 +73,7 @@ func NewPalette(bucket string) (*Palette, error) {
 	for _, fileName := range list {
 
 		name := fileName.Name()
-		img, c, err := hashPalette(bucket, fileName.Name())
+		img, c, err := hashPalette(bucket, fileName.Name(), size)
 		if err != nil {
 			return nil, err
 		}
@@ -173,7 +175,7 @@ func LoadPalette(src string) (*Palette, error) {
 
 }
 
-func hashPalette(bucket, fileName string) (*image.Image, color.Color, error) {
+func hashPalette(bucket, fileName string, imgSize int) (*image.Image, color.Color, error) {
 
 	fpath := fmt.Sprintf("%s/%s", bucket, fileName)
 	imgFile, err := os.Open(fpath)
@@ -186,6 +188,8 @@ func hashPalette(bucket, fileName string) (*image.Image, color.Color, error) {
 	if err != nil {
 		return nil, color.RGBA{0, 0, 0, 0}, err
 	}
+
+	img = transform.Resize(img, imgSize, imgSize, transform.Linear)
 
 	var mr, mg, mb, ma uint32 = 0, 0, 0, 0
 	var count uint32 = 0
