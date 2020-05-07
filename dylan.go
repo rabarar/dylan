@@ -23,6 +23,7 @@ func main() {
 	srcFilename := flag.String("src", "", "input jpeg filename ")
 	dstFilename := flag.String("dst", "output.jpg", "output jpeg filename ")
 	palFilename := flag.String("palette", "palette.json", "json for palette")
+	size := flag.Int("size", mosaic.WINDOW_SIZE, "tile size")
 	mode := flag.String("mode", "tile", "tiling mode: tile | random | mean | copy")
 
 	flag.Parse()
@@ -32,7 +33,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	mo, err := mosaic.NewMosaic(*srcFilename, mosaic.WINDOW_SIZE)
+	mo, err := mosaic.NewMosaic(*srcFilename, *size)
 	if err != nil {
 		panic(err)
 	}
@@ -43,7 +44,7 @@ func main() {
 	}
 	fmt.Printf("loaded Palette...\n")
 
-	err = p.FillPalette()
+	err = p.FillPalette(*size)
 	if err != nil {
 		panic(err)
 	}
