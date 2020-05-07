@@ -36,7 +36,7 @@ func (br *Brush) Image() *image.Image {
 	return br.img
 }
 
-func (br *Brush) Fill(basePath string) error {
+func (br *Brush) fill(basePath string, imgSize int) error {
 
 	fpath := fmt.Sprintf("%s/%s", basePath, br.File)
 	imgFile, err := os.Open(fpath)
@@ -49,6 +49,8 @@ func (br *Brush) Fill(basePath string) error {
 	if err != nil {
 		return err
 	}
+
+	img = transform.Resize(img, imgSize, imgSize, transform.Linear)
 	br.img = &img
 
 	return nil
@@ -116,10 +118,10 @@ func (p *Palette) Save(dst string) error {
 }
 
 // FillPalette
-func (p *Palette) FillPalette() error {
+func (p *Palette) FillPalette(size int) error {
 
 	for i := 0; i < len(p.List); i++ {
-		err := p.List[i].Fill(p.Dirname)
+		err := p.List[i].fill(p.Dirname, size)
 		if err != nil {
 			return err
 		}
