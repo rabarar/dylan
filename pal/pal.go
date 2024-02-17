@@ -68,6 +68,7 @@ func NewPalette(bucket string, size int) (*Palette, error) {
 	p.Dirname = bucket
 	list, err := ioutil.ReadDir(bucket)
 	if err != nil {
+		fmt.Printf("failed to read directory...")
 		return nil, err
 	}
 
@@ -77,6 +78,7 @@ func NewPalette(bucket string, size int) (*Palette, error) {
 		name := fileName.Name()
 		img, c, err := hashPalette(bucket, fileName.Name(), size)
 		if err != nil {
+			fmt.Printf("failed to hashPalette for %s ...\n", fileName.Name())
 			return nil, err
 		}
 
